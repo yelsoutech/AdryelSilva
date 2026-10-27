@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -44,10 +44,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router = useRouter();
   const { user, organization, role, loading, signOut, hasPermission } = useAuth();
 
+  // Redirect to login when there's no authenticated session. Done here
+  // (client-side) because Supabase stores the session in localStorage,
+  // which the server-side middleware cannot read.
+  useEffect(() => {
+    if (!loading && !user) {
+      const redirect = encodeURIComponent(pathname);
+      router.replace(`/login?redirect=${redirect}`);
+    }
+  }, [loading, user, pathname, router]);
+
   async function handleSignOut() {
     await signOut();
-    router.push('/login');
-    router.refresh();
   }
 
   const visibleNavItems = navItems.filter((item) => !item.permission || hasPermission(item.permission));

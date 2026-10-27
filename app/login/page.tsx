@@ -34,7 +34,9 @@ export default function LoginPage() {
       );
       setLoading(false);
     } else {
-      router.push(redirect);
+      // Wait for the session to be persisted by the AuthProvider before
+      // navigating, so the dashboard's auth guard sees it as signed in.
+      router.replace(redirect);
       router.refresh();
     }
   }

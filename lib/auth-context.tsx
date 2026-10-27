@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import type { Organization } from '@/lib/types';
 import type { PermissionName } from '@/lib/permissions';
@@ -21,6 +22,7 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [organization, setOrganization] = useState<Organization | null>(null);
@@ -42,31 +44,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const roleId = (member as { organization_id: string; role_id: string } | null)?.role_id;
 
     if (orgId) {
-      const { data: org } = await supabase
-        .from('organizations')
-        .select('*')
-        .eq('id', orgId)
-        .maybeSingle();
+      const [{ data: org }, { data: roleData }, { data: perms }] = await Promise.all([
+        supabase.from('organizations').select('*').eq('id', orgId).maybeSingle(),
+        roleId
+          ? supabase.from('roles').select('name').eq('id', roleId).maybeSingle()
+          : Promise.resolve({ data: null }),
+        roleId
+          ? supabase.from('role_permissions').select('permissions(name)').eq('role_id', roleId)
+          : Promise.resolve({ data: null }),
+      ]);
+
       setOrganization(org as Organization | null);
+      setRole((roleData as { name: string } | null)?.name ?? null);
 
-      if (roleId) {
-        const { data: roleData } = await supabase
-          .from('roles')
-          .select('name')
-          .eq('id', roleId)
-          .maybeSingle();
-        setRole((roleData as { name: string } | null)?.name ?? null);
-
-        const { data: perms } = await supabase
-          .from('role_permissions')
-          .select('permissions(name)')
-          .eq('role_id', roleId);
-
-        const permNames: PermissionName[] = (perms as unknown as { permissions: { name: string } | null }[] | null)
-          ?.map((rp) => rp?.permissions?.name)
-          .filter((n): n is string => !!n) as PermissionName[] ?? [];
-        setPermissions(permNames);
-      }
+      const permNames: PermissionName[] = (perms as unknown as { permissions: { name: string } | null }[] | null)
+        ?.map((rp) => rp?.permissions?.name)
+        .filter((n): n is string => !!n) as PermissionName[] ?? [];
+      setPermissions(permNames);
     } else {
       setOrganization(null);
       setRole(null);
@@ -80,31 +74,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user, fetchOrganization]);
 
+  // Single source of truth for the initial session: onAuthStateChange fires
+  // synchronously for the restored session, so we let it drive loading state.
   useEffect(() => {
+    let mounted = true;
+
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) {
-        fetchOrganization(session.user.id).finally(() => setLoading(false));
-      } else {
+      if (!session) {
         setLoading(false);
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        fetchOrganization(session.user.id);
+        fetchOrganization(session.user.id).finally(() => {
+          if (mounted) setLoading(false);
+        });
       } else {
         setOrganization(null);
         setRole(null);
         setPermissions([]);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [fetchOrganization]);
 
   const signOut = useCallback(async () => {
@@ -114,7 +117,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setOrganization(null);
     setRole(null);
     setPermissions([]);
-  }, []);
+    router.push('/login');
+    router.refresh();
+  }, [router]);
 
   const hasPermission = useCallback((permission: PermissionName) => {
     return permissions.includes(permission);

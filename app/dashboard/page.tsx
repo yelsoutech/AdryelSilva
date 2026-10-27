@@ -20,7 +20,10 @@ export default function DashboardHome() {
 
   useEffect(() => {
     async function fetchStats() {
-      if (!organization) return;
+      if (!organization) {
+        setStatsLoading(false);
+        return;
+      }
       setStatsLoading(true);
 
       const [accountsRes, jobsRes, membersRes, productsRes] = await Promise.all([
