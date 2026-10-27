@@ -6,27 +6,27 @@ import { PERMISSIONS } from '@/lib/permissions';
 
 export default function PipelinePage() {
   const stages = [
-    { name: 'Collector', description: 'Fetches raw data from marketplace APIs' },
-    { name: 'Queue', description: 'Collection jobs waiting for processing' },
-    { name: 'Worker', description: 'Processes jobs through the pipeline' },
-    { name: 'Parser', description: 'Extracts structured fields from raw payloads' },
-    { name: 'Validator', description: 'Ensures data integrity and completeness' },
-    { name: 'Normalizer', description: 'Maps marketplace fields to unified schema' },
-    { name: 'Database', description: 'Stores raw and normalized data' },
+    { name: 'Coletor', description: 'Busca dados brutos das APIs dos marketplaces' },
+    { name: 'Fila', description: 'Trabalhos de coleta aguardando processamento' },
+    { name: 'Worker', description: 'Processa trabalhos pelo pipeline' },
+    { name: 'Parser', description: 'Extrai campos estruturados dos dados brutos' },
+    { name: 'Validador', description: 'Garante a integridade e completude dos dados' },
+    { name: 'Normalizador', description: 'Mapeia campos do marketplace para o schema unificado' },
+    { name: 'Banco de Dados', description: 'Armazena dados brutos e normalizados' },
   ];
 
   return (
     <ProtectedRoute permission={PERMISSIONS.RESEARCH_READ}>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Data Pipeline</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Pipeline de Dados</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            The collection and processing pipeline for marketplace data.
+            O pipeline de coleta e processamento de dados dos marketplaces.
           </p>
         </div>
 
         <div className="rounded-xl border bg-card p-6 shadow-sm">
-          <h2 className="text-base font-semibold">Pipeline Stages</h2>
+          <h2 className="text-base font-semibold">Etapas do Pipeline</h2>
           <div className="mt-4 space-y-3">
             {stages.map((stage, index) => (
               <div key={stage.name} className="flex items-start gap-4">
@@ -49,9 +49,9 @@ export default function PipelinePage() {
           <div className="flex items-center gap-3">
             <Database className="h-5 w-5 text-muted-foreground" />
             <div>
-              <h3 className="text-sm font-semibold">No collection jobs yet</h3>
+              <h3 className="text-sm font-semibold">Nenhum trabalho de coleta ainda</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Jobs will appear here once marketplace accounts are connected and data collection begins.
+                Os trabalhos aparecerão aqui assim que as contas de marketplace forem conectadas e a coleta de dados começar.
               </p>
             </div>
           </div>

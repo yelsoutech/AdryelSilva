@@ -60,7 +60,7 @@ export default function DashboardHome() {
 
   const statCards = [
     {
-      label: 'Marketplace Accounts',
+      label: 'Contas de Marketplace',
       value: stats?.accountCount ?? 0,
       icon: Store,
       href: '/dashboard/marketplaces',
@@ -68,7 +68,7 @@ export default function DashboardHome() {
       bg: 'bg-blue-50',
     },
     {
-      label: 'Collection Jobs',
+      label: 'Trabalhos de Coleta',
       value: stats?.jobCount ?? 0,
       icon: Activity,
       href: '/dashboard/pipeline',
@@ -76,7 +76,7 @@ export default function DashboardHome() {
       bg: 'bg-amber-50',
     },
     {
-      label: 'Products Tracked',
+      label: 'Produtos Monitorados',
       value: stats?.productCount ?? 0,
       icon: Briefcase,
       href: '/dashboard/reports',
@@ -84,7 +84,7 @@ export default function DashboardHome() {
       bg: 'bg-emerald-50',
     },
     {
-      label: 'Team Members',
+      label: 'Membros da Equipe',
       value: stats?.memberCount ?? 0,
       icon: Users,
       href: '/dashboard/team',
@@ -96,12 +96,12 @@ export default function DashboardHome() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Painel</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {organization
-            ? `Welcome to ${organization.name}. Here's an overview of your workspace.`
-            : 'Welcome to Marketplace Intelligence.'}
-          {role && <span className="ml-1">You are signed in as <span className="font-medium capitalize">{role}</span>.</span>}
+            ? `Bem-vindo a ${organization.name}. Aqui está uma visão geral do seu workspace.`
+            : 'Bem-vindo ao Marketplace Intelligence.'}
+          {role && <span className="ml-1">Você está logado como <span className="font-medium capitalize">{role}</span>.</span>}
         </p>
       </div>
 
@@ -137,30 +137,30 @@ export default function DashboardHome() {
               <Database className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="text-base font-semibold">Pipeline Status</h3>
-              <p className="text-sm text-muted-foreground">Data collection and processing</p>
+              <h3 className="text-base font-semibold">Status do Pipeline</h3>
+              <p className="text-sm text-muted-foreground">Coleta e processamento de dados</p>
             </div>
           </div>
           <div className="mt-4 space-y-3">
             <div className="flex items-center justify-between rounded-lg border px-4 py-3">
-              <span className="text-sm font-medium">Collector</span>
+              <span className="text-sm font-medium">Coletor</span>
               <span className="flex items-center gap-1.5 text-xs font-medium text-success">
                 <span className="h-2 w-2 rounded-full bg-success" />
-                Ready
+                Pronto
               </span>
             </div>
             <div className="flex items-center justify-between rounded-lg border px-4 py-3">
               <span className="text-sm font-medium">Worker</span>
               <span className="flex items-center gap-1.5 text-xs font-medium text-warning">
                 <span className="h-2 w-2 rounded-full bg-warning" />
-                Awaiting jobs
+                Aguardando trabalhos
               </span>
             </div>
             <div className="flex items-center justify-between rounded-lg border px-4 py-3">
-              <span className="text-sm font-medium">Normalizer</span>
+              <span className="text-sm font-medium">Normalizador</span>
               <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-muted-foreground" />
-                Idle
+                Inativo
               </span>
             </div>
           </div>
@@ -172,16 +172,16 @@ export default function DashboardHome() {
               <BarChart3 className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="text-base font-semibold">Quick Actions</h3>
-              <p className="text-sm text-muted-foreground">Jump to common tasks</p>
+              <h3 className="text-base font-semibold">Ações Rápidas</h3>
+              <p className="text-sm text-muted-foreground">Acesse tarefas comuns</p>
             </div>
           </div>
           <div className="mt-4 space-y-3">
             {[
-              { label: 'Connect a marketplace account', href: '/dashboard/marketplaces' },
-              { label: 'View data collection pipeline', href: '/dashboard/pipeline' },
-              { label: 'Manage team members', href: '/dashboard/team' },
-              { label: 'Edit organization settings', href: '/dashboard/settings' },
+              { label: 'Conectar uma conta de marketplace', href: '/dashboard/marketplaces' },
+              { label: 'Ver pipeline de coleta de dados', href: '/dashboard/pipeline' },
+              { label: 'Gerenciar membros da equipe', href: '/dashboard/team' },
+              { label: 'Editar configurações da organização', href: '/dashboard/settings' },
             ].map((action) => (
               <Link
                 key={action.href}

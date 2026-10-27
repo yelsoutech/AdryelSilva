@@ -115,7 +115,7 @@ export default function TeamPage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Equipe</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Gerencie os membros da sua organizacao e suas permissoes.
+            Gerencie os membros da sua organização e suas permissões.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function TeamPage() {
                 Convidar membro
               </CardTitle>
               <CardDescription>
-                Envie um convite para um novo membro se juntar a sua organizacao.
+                Envie um convite para um novo membro se juntar à sua organização.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -145,7 +145,7 @@ export default function TeamPage() {
                   />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <Label htmlFor="invite-role">Funcao</Label>
+                  <Label htmlFor="invite-role">Função</Label>
                   <select
                     id="invite-role"
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -175,7 +175,7 @@ export default function TeamPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <Shield className="h-4 w-4" />
-              Membros da organizacao
+              Membros da organização
             </CardTitle>
           </CardHeader>
           <CardContent>

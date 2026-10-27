@@ -32,7 +32,7 @@ export function ProtectedRoute({ permission, children, fallback }: ProtectedRout
         </div>
         <h3 className="text-base font-semibold">Acesso negado</h3>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Voce nao tem permissao para acessar esta pagina.
+          Você não tem permissão para acessar esta página.
         </p>
       </div>
     );

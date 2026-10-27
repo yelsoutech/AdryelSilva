@@ -34,10 +34,10 @@ type AccountWithMarketplace = MarketplaceAccount & {
 };
 
 const STATUS_CONFIG: Record<string, { label: string; variant: 'success' | 'warning' | 'destructive' | 'secondary'; icon: typeof CheckCircle2 }> = {
-  connected: { label: 'Connected', variant: 'success', icon: CheckCircle2 },
-  disconnected: { label: 'Disconnected', variant: 'secondary', icon: XCircle },
-  error: { label: 'Error', variant: 'destructive', icon: AlertCircle },
-  pending: { label: 'Pending', variant: 'warning', icon: AlertCircle },
+  connected: { label: 'Conectado', variant: 'success', icon: CheckCircle2 },
+  disconnected: { label: 'Desconectado', variant: 'secondary', icon: XCircle },
+  error: { label: 'Erro', variant: 'destructive', icon: AlertCircle },
+  pending: { label: 'Pendente', variant: 'warning', icon: AlertCircle },
 };
 
 export default function MarketplacesPage() {
@@ -130,7 +130,7 @@ export default function MarketplacesPage() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Marketplaces</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Connect and manage your marketplace accounts.
+              Conecte e gerencie suas contas de marketplace.
             </p>
           </div>
           {canManage && (
@@ -138,14 +138,14 @@ export default function MarketplacesPage() {
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="mr-2 h-4 w-4" />
-                  Add Account
+                  Adicionar Conta
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Connect Marketplace Account</DialogTitle>
+                  <DialogTitle>Conectar Conta de Marketplace</DialogTitle>
                   <DialogDescription>
-                    Add a marketplace seller account to start collecting data.
+                    Adicione uma conta de vendedor de marketplace para começar a coletar dados.
                   </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleConnect} className="space-y-4">
@@ -153,7 +153,7 @@ export default function MarketplacesPage() {
                     <Label htmlFor="marketplace">Marketplace</Label>
                     <Select value={selectedMarketplace} onValueChange={setSelectedMarketplace}>
                       <SelectTrigger id="marketplace">
-                        <SelectValue placeholder="Select a marketplace" />
+                        <SelectValue placeholder="Selecione um marketplace" />
                       </SelectTrigger>
                       <SelectContent>
                         {marketplaces.map((m) => (
@@ -165,10 +165,10 @@ export default function MarketplacesPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="account-name">Account Name</Label>
+                    <Label htmlFor="account-name">Nome da Conta</Label>
                     <Input
                       id="account-name"
-                      placeholder="My Seller Account"
+                      placeholder="Minha Conta de Vendedor"
                       value={accountName}
                       onChange={(e) => setAccountName(e.target.value)}
                       required
@@ -176,7 +176,7 @@ export default function MarketplacesPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="account-id">Account ID</Label>
+                    <Label htmlFor="account-id">ID da Conta</Label>
                     <Input
                       id="account-id"
                       placeholder="MLB123456789"
@@ -192,7 +192,7 @@ export default function MarketplacesPage() {
                   <DialogFooter>
                     <Button type="submit" disabled={submitting}>
                       {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                      Connect
+                      Conectar
                     </Button>
                   </DialogFooter>
                 </form>
@@ -211,11 +211,11 @@ export default function MarketplacesPage() {
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
                 <Store className="h-7 w-7 text-muted-foreground" />
               </div>
-              <h3 className="mt-4 text-base font-semibold">No marketplace accounts connected</h3>
+              <h3 className="mt-4 text-base font-semibold">Nenhuma conta de marketplace conectada</h3>
               <p className="mt-1 max-w-sm text-sm text-muted-foreground">
                 {canManage
-                  ? 'Click "Add Account" to connect your first marketplace seller account.'
-                  : 'Ask an administrator to connect a marketplace account.'}
+                  ? 'Clique em "Adicionar Conta" para conectar sua primeira conta de vendedor de marketplace.'
+                  : 'Solicite a um administrador que conecte uma conta de marketplace.'}
               </p>
             </CardContent>
           </Card>
@@ -235,7 +235,7 @@ export default function MarketplacesPage() {
                         <div>
                           <CardTitle className="text-sm">{account.account_name}</CardTitle>
                           <CardDescription className="text-xs">
-                            {account.marketplaces?.display_name || 'Unknown marketplace'}
+                            {account.marketplaces?.display_name || 'Marketplace desconhecido'}
                           </CardDescription>
                         </div>
                       </div>
@@ -264,7 +264,7 @@ export default function MarketplacesPage() {
                     {account.last_sync_at && (
                       <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                         <RefreshCw className="h-3 w-3" />
-                        Last sync: {new Date(account.last_sync_at).toLocaleDateString()}
+                        Última sincronização: {new Date(account.last_sync_at).toLocaleDateString('pt-BR')}
                       </div>
                     )}
                   </CardContent>

@@ -29,12 +29,12 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, permission: PERMISSIONS.DASHBOARD_READ },
+  { label: 'Painel', href: '/dashboard', icon: LayoutDashboard, permission: PERMISSIONS.DASHBOARD_READ },
   { label: 'Marketplaces', href: '/dashboard/marketplaces', icon: Store, permission: PERMISSIONS.MARKETPLACES_READ },
-  { label: 'Data Pipeline', href: '/dashboard/pipeline', icon: Database, permission: PERMISSIONS.RESEARCH_READ },
-  { label: 'Reports', href: '/dashboard/reports', icon: BarChart3, permission: PERMISSIONS.ANALYTICS_READ },
-  { label: 'Team', href: '/dashboard/team', icon: Users, permission: PERMISSIONS.USERS_READ },
-  { label: 'Settings', href: '/dashboard/settings', icon: Settings, permission: PERMISSIONS.ORGANIZATION_READ },
+  { label: 'Pipeline de Dados', href: '/dashboard/pipeline', icon: Database, permission: PERMISSIONS.RESEARCH_READ },
+  { label: 'Relatórios', href: '/dashboard/reports', icon: BarChart3, permission: PERMISSIONS.ANALYTICS_READ },
+  { label: 'Equipe', href: '/dashboard/team', icon: Users, permission: PERMISSIONS.USERS_READ },
+  { label: 'Configurações', href: '/dashboard/settings', icon: Settings, permission: PERMISSIONS.ORGANIZATION_READ },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

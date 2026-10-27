@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Marketplace Intelligence',
-  description: 'B2B SaaS platform for marketplace data intelligence',
+  description: 'Plataforma SaaS B2B para inteligência de dados de marketplace',
 };
 
 export default function RootLayout({

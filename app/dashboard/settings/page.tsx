@@ -64,9 +64,9 @@ export default function SettingsPage() {
     <ProtectedRoute permission={PERMISSIONS.ORGANIZATION_READ}>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Configurações</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Manage your workspace and platform configuration.
+            Gerencie seu workspace e a configuração da plataforma.
           </p>
         </div>
 
@@ -75,16 +75,16 @@ export default function SettingsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
                 <Building2 className="h-4 w-4" />
-                Organization Details
+                Detalhes da Organização
               </CardTitle>
               <CardDescription>
-                Update your organization name and slug.
+                Atualize o nome e o slug da sua organização.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSave} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="org-name">Organization Name</Label>
+                  <Label htmlFor="org-name">Nome da Organização</Label>
                   <Input
                     id="org-name"
                     value={orgName}
@@ -104,7 +104,7 @@ export default function SettingsPage() {
                     className="font-mono"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Used as a URL-friendly identifier for your organization.
+                    Usado como um identificador amigável para URL da sua organização.
                   </p>
                 </div>
 
@@ -115,14 +115,14 @@ export default function SettingsPage() {
                 {saved && (
                   <p className="text-sm text-success flex items-center gap-1.5">
                     <Save className="h-3.5 w-3.5" />
-                    Changes saved successfully.
+                    Alterações salvas com sucesso.
                   </p>
                 )}
 
                 {canUpdate && (
                   <Button type="submit" disabled={saving || !orgName || !orgSlug}>
                     {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                    Save Changes
+                    Salvar Alterações
                   </Button>
                 )}
               </form>
@@ -131,26 +131,26 @@ export default function SettingsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Organization Status</CardTitle>
+              <CardTitle className="text-base">Status da Organização</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Status</span>
                 <Badge variant="success" className="gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-success-foreground" />
-                  Active
+                  Ativo
                 </Badge>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Created</span>
+                <span className="text-sm text-muted-foreground">Criada</span>
                 <span className="flex items-center gap-1.5 text-sm">
                   <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
-                  {createdAt ? new Date(createdAt).toLocaleDateString() : '—'}
+                  {createdAt ? new Date(createdAt).toLocaleDateString('pt-BR') : '—'}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Plan</span>
-                <Badge variant="secondary">Free</Badge>
+                <span className="text-sm text-muted-foreground">Plano</span>
+                <Badge variant="secondary">Gratuito</Badge>
               </div>
             </CardContent>
           </Card>
